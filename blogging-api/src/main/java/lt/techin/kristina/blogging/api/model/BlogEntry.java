@@ -5,11 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.annotation.PostConstruct;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
@@ -36,7 +32,7 @@ public class BlogEntry {
         this.text = text;
     }
 
-    @PostConstruct
+    @PrePersist
     public void postConstruct() {
         createdDate = LocalDateTime.now();
     }

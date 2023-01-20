@@ -5,9 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,7 +23,7 @@ public class Comment {
     private String message;
 
     @ManyToOne
-    @NotNull
+    @JoinColumn(name="blog_entry_id")
     private BlogEntry blogEntry;
 
     @CreatedDate
@@ -38,7 +36,7 @@ public class Comment {
         this.blogEntry = blogEntry;
     }
 
-    @PostConstruct
+    @PrePersist
     private void postConstruct() {
         createdDate = LocalDateTime.now();
     }

@@ -1,13 +1,14 @@
 package lt.techin.kristina.blogging.api.repository;
 
 import lt.techin.kristina.blogging.api.model.BlogEntry;
+import lt.techin.kristina.blogging.api.model.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface BlogEntryRepository extends JpaRepository<BlogEntry,Long> {
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    List<BlogEntry> findAllByOrderByCreatedDateDesc();
+    List<Comment> findAllByBlogEntry(BlogEntry blogEntry);
 }
