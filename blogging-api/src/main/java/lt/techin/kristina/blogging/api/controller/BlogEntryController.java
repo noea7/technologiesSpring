@@ -4,6 +4,7 @@ import lt.techin.kristina.blogging.api.dto.BlogEntryDto;
 import lt.techin.kristina.blogging.api.dto.mapper.BlogEntryMapper;
 import lt.techin.kristina.blogging.api.model.BlogEntry;
 import lt.techin.kristina.blogging.api.service.BlogEntryService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/blogEntries")
 public class BlogEntryController {
+
+    @Value("${application.version}")
+    private String version;
 
     BlogEntryService blogEntryService;
 
@@ -43,5 +47,10 @@ public class BlogEntryController {
         } else {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @GetMapping("/info")
+    public String getInfo() {
+        return version;
     }
 }
