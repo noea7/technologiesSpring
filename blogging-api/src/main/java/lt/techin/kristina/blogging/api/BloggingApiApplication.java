@@ -1,4 +1,4 @@
-package lt.techin.kristina.bloggingapi;
+package lt.techin.kristina.blogging.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
