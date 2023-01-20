@@ -33,4 +33,8 @@ public class BlogEntryService {
     public BlogEntry createBlogEntry(BlogEntry blogEntry) {
         return blogEntryRepository.save(blogEntry);
     }
+
+    public Optional<BlogEntry> getBlogEntryByTitle(String title) {
+        return blogEntryRepository.findByTitle(title);
+    }
 }

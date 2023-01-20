@@ -4,6 +4,7 @@ import lt.techin.kristina.blogging.api.dto.BlogEntryDto;
 import lt.techin.kristina.blogging.api.dto.mapper.BlogEntryMapper;
 import lt.techin.kristina.blogging.api.model.BlogEntry;
 import lt.techin.kristina.blogging.api.service.BlogEntryService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,12 +21,12 @@ public class BlogEntryController {
         this.blogEntryService = blogEntryService;
     }
 
-    @GetMapping
+    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     private List<BlogEntry> getAllBlogEntries() {
         return blogEntryService.getAllBlogEntries();
     }
 
-    @GetMapping("/ordered")
+    @GetMapping(value="/ordered",produces = {MediaType.APPLICATION_JSON_VALUE})
     private List<BlogEntry> getAllBlogEntriesOrdered() {
         return blogEntryService.getAllBlogEntriesOrdered();
     }
@@ -37,6 +38,10 @@ public class BlogEntryController {
 
     @PostMapping
     private ResponseEntity<BlogEntry> createBlogEntry(@RequestBody BlogEntryDto blogEntryDto) {
-        return ResponseEntity.ok(blogEntryService.createBlogEntry(BlogEntryMapper.toBlogEntry(blogEntryDto)));
+        if (blogEntryService.getBlogEntryByTitle(blogEntryDto.getTitle()).isEmpty()) {
+            return ResponseEntity.ok(blogEntryService.createBlogEntry(BlogEntryMapper.toBlogEntry(blogEntryDto)));
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

@@ -20,6 +20,7 @@ public class BlogEntry {
     private Long id;
 
     @NotBlank
+    @Column(unique = true)
     private String title;
 
     private String text;
